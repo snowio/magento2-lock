@@ -1,0 +1,16 @@
+{
+    "name": "snowio/magento2-lock",
+    "license": "MIT",
+    "description": "A Magento 2 module which provides a multi-server lock service",
+    "require": {
+        "php": ">=7"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "SnowIO\\Lock\\": ""
+        }
+    }
+}
