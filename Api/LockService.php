@@ -4,7 +4,7 @@ namespace SnowIO\Lock\Api;
 
 interface LockService
 {
-    public function acquireLock(string $lock, int $timeout) : bool;
+    public function acquireLock(string $name, int $timeout) : bool;
 
-    public function releaseLock(string $lock);
+    public function releaseLock(string $name);
 }

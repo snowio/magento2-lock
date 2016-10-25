@@ -15,17 +15,17 @@ class MySQLLockService implements LockService
         $this->connection = $resourceConnection->getConnection();
     }
 
-    public function acquireLock(string $lock, int $timeout) : bool
+    public function acquireLock(string $name, int $timeout) : bool
     {
-        $statement = sprintf("SELECT GET_LOCK(%s, %u)", $this->prepareLockName($lock), $timeout);
+        $statement = sprintf("SELECT GET_LOCK(%s, %u)", $this->prepareLockName($name), $timeout);
         $result = $this->connection->fetchOne($statement);
 
         return $result === '1';
     }
 
-    public function releaseLock(string $lock)
+    public function releaseLock(string $name)
     {
-        $statement = "SELECT RELEASE_LOCK({$this->prepareLockName($lock)})";
+        $statement = "SELECT RELEASE_LOCK({$this->prepareLockName($name)})";
         $this->connection->query($statement);
     }
 
