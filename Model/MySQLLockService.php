@@ -19,7 +19,11 @@ class MySQLLockService implements LockService
 
     public function acquireLock($lock, $timeout) : bool
     {
-        $statement = sprintf("SELECT GET_LOCK(%s, %u)", $this->connection->quote($lock), $this->connection->quote($timeout, 'INTEGER'));
+        $statement = sprintf(
+            "SELECT GET_LOCK(%s, %u)",
+            $this->connection->quote($lock),
+            $this->connection->quote($timeout, 'INTEGER')
+        );
         $result = $this->connection->fetchOne($statement);
 
         return $result === '1';
@@ -27,7 +31,10 @@ class MySQLLockService implements LockService
 
     public function releaseLock($lock)
     {
-        $statement = sprintf("SELECT RELEASE_LOCK(%s)", $this->connection->quote($lock));
+        $statement = sprintf(
+            "SELECT RELEASE_LOCK(%s)",
+            $this->connection->quote($lock)
+        );
         $this->connection->query($statement);
     }
 }
