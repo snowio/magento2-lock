@@ -10,9 +10,6 @@ class MySQLLockService implements LockService
     private $connection;
     private $currentDatabase;
 
-    /**
-     * @param \Magento\Framework\App\ResourceConnection $resourceConnection
-     */
     public function __construct(ResourceConnection $resourceConnection)
     {
         $this->connection = $resourceConnection->getConnection();
