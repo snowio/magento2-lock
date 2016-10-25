@@ -8,6 +8,7 @@ use SnowIO\Lock\Api\LockService;
 class MySQLLockService implements LockService
 {
     private $connection;
+    private $currentDatabase;
 
     /**
      * @param \Magento\Framework\App\ResourceConnection $resourceConnection
@@ -17,24 +18,31 @@ class MySQLLockService implements LockService
         $this->connection = $resourceConnection->getConnection();
     }
 
-    public function acquireLock($lock, $timeout) : bool
+    public function acquireLock(string $lock, int $timeout) : bool
     {
-        $statement = sprintf(
-            "SELECT GET_LOCK(%s, %u)",
-            $this->connection->quote($lock),
-            $this->connection->quote($timeout, 'INTEGER')
-        );
+        $statement = sprintf("SELECT GET_LOCK(%s, %u)", $this->prepareLockName($lock), $timeout);
         $result = $this->connection->fetchOne($statement);
 
         return $result === '1';
     }
 
-    public function releaseLock($lock)
+    public function releaseLock(string $lock)
     {
-        $statement = sprintf(
-            "SELECT RELEASE_LOCK(%s)",
-            $this->connection->quote($lock)
-        );
+        $statement = "SELECT RELEASE_LOCK({$this->prepareLockName($lock)})";
         $this->connection->query($statement);
+    }
+
+    private function prepareLockName(string $lockName) : string
+    {
+        return $this->connection->quote("{$this->getCurrentDatabase()}.$lockName");
+    }
+
+    private function getCurrentDatabase()
+    {
+        if (null === $this->currentDatabase) {
+            $this->currentDatabase = $this->connection->fetchOne('SELECT DATABASE()');
+        }
+
+        return $this->currentDatabase;
     }
 }
