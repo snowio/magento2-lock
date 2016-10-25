@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=7",
-        "magento/framework": "^100.2.0"
+        "magento/framework": "^100"
     },
     "autoload": {
         "files": [ "registration.php" ],
