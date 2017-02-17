@@ -3,9 +3,8 @@
 namespace SnowIO\Lock\Model;
 
 use Magento\Framework\App\ResourceConnection;
-use SnowIO\Lock\Api\LockService;
 
-class MySQLLockService implements LockService
+class MySQLLockService extends AbstractLockService
 {
     private $connection;
     private $currentDatabase;
