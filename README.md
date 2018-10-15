@@ -4,7 +4,7 @@ A Magento 2 module which provides a multi-server lock service.
 This allows developers to apply mutual exclusion locks to shared resources so that they are 
 not accessed simultaneously. 
 
-##Prerequisites
+## Prerequisites
 * PHP 7.0 or newer.
 * `magento/framework` module 100 or newer.
 * Composer  (https://getcomposer.org/download/).
@@ -35,11 +35,11 @@ A boolean indicating if the the lock was acquired.
 
 ### `public LockService::releaseLock($lockName)`
 Release the lock 
-####Parameters
+#### Parameters
 * `$lockName` : The lock identifier/name
 
 
-###Example
+### Example
 ```php
 namespace Vendor\Module\Model\Accessors;
 class ResourceAccessor
@@ -73,7 +73,7 @@ class ResourceAccessor
 }
 ```
 
-##Applications
+## Applications
 * [snowio/magento2-product-save-mutex](https://github.com/snowio/magento2-product-save-mutex) : Uses this module in order to make product save API calls mutually exclusive.
 * [snowio/magento2-idempotent-api](https://github.com/snowio/magento2-idempotent-api) : Uses this module in order to determine request conflicts whereby 2 or more requests that have the same `X-Message-Group-ID` are dispatched.
 
