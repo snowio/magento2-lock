@@ -30,7 +30,11 @@ class MySQLLockService extends AbstractLockService
 
     private function prepareLockName(string $lockName) : string
     {
-        return $this->connection->quote("{$this->getCurrentDatabase()}.$lockName");
+        $lockName = "{$this->getCurrentDatabase()}.$lockName";
+        if (strlen($lockName) >= 64) {
+            $lockName = hash('sha256', $lockName);
+        }
+        return $this->connection->quote($lockName);
     }
 
     private function getCurrentDatabase()
