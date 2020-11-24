@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": ">=7",
-        "magento/framework": "^100|^101|^102"
+        "magento/framework": "^100|^101|^102|^103"
     },
     "autoload": {
         "files": [ "registration.php" ],
